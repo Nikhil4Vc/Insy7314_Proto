@@ -1,0 +1,8 @@
+node_modules/
+.env
+certificates/*.key
+certificates/*.pem
+coverage/
+npm-debug.log*
+.DS_Store
+data/users.json
