@@ -30,7 +30,12 @@ const registerValidation = [
         .matches(/[0-9]/)
         .withMessage("Password must contain at least one number.")
         .matches(/[^A-Za-z0-9]/)
-        .withMessage("Password must contain at least one special character.")
+        .withMessage("Password must contain at least one special character."),
+
+    body("role")
+        .optional()
+        .isIn(["client", "freelancer"])
+        .withMessage("Role must be either client or freelancer.")
 ];
 
 const loginValidation = [

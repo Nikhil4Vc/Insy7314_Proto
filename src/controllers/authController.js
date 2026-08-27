@@ -16,9 +16,14 @@ const {
 // Register
 async function register(req, res, next) {
     try {
-        const { name, email, password } = req.body;
+        const {
+    name,
+    email,
+    password,
+    role = "client"
+} = req.body;
 
-        const existingUser = findUserByEmail(email);
+        const existingUser = await findUserByEmail(email);
 
         if (existingUser) {
             return res.status(409).json({
@@ -30,26 +35,25 @@ async function register(req, res, next) {
         const passwordHash = await bcrypt.hash(password, 12);
 
         const user = {
-            id: crypto.randomUUID(),
             name,
             email: email.toLowerCase(),
             passwordHash,
-            role: "client",
+            role,
             createdAt: new Date().toISOString()
         };
 
-        createUser(user);
+        const savedUser = await createUser(user);
 
-        return res.status(201).json({
-            success: true,
-            message: "Account created successfully.",
-            user: {
-                id: user.id,
-                name: user.name,
-                email: user.email,
-                role: user.role
-            }
-        });
+return res.status(201).json({
+    success: true,
+    message: "Account created successfully.",
+    user: {
+        id: savedUser._id.toString(),
+        name: savedUser.name,
+        email: savedUser.email,
+        role: savedUser.role
+    }
+});
     } catch (error) {
         next(error);
     }
@@ -60,7 +64,7 @@ async function login(req, res, next) {
     try {
         const { email, password } = req.body;
 
-        const user = findUserByEmail(email);
+        const user = await findUserByEmail(email);
 
         if (!user) {
             return res.status(401).json({
@@ -83,7 +87,7 @@ async function login(req, res, next) {
 
         const token = jwt.sign(
     {
-        sub: user.id,
+        sub: user._id.toString(),
         email: user.email,
         role: user.role
     },
@@ -98,11 +102,11 @@ async function login(req, res, next) {
             message: "Login successful.",
             token,
             user: {
-                id: user.id,
-                name: user.name,
-                email: user.email,
-                role: user.role
-            }
+    id: user._id.toString(),
+    name: user.name,
+    email: user.email,
+    role: user.role
+}
         });
     } catch (error) {
         next(error);
@@ -110,9 +114,9 @@ async function login(req, res, next) {
 }
 
 // Gets current user
-function getCurrentUser(req, res, next) {
+async function getCurrentUser(req, res, next) {
     try {
-        const user = findUserById(req.user.sub);
+       const user = await findUserById(req.user.sub);
 
         if (!user) {
             return res.status(404).json({

@@ -1,63 +1,19 @@
-const fs = require("fs");
-const path = require("path");
+const User = require("./User");
 
-const dataDirectory = path.join(__dirname, "../../data");
-const usersFile = path.join(dataDirectory, "users.json");
-
-function ensureDataFile() {
-    if (!fs.existsSync(dataDirectory)) {
-        fs.mkdirSync(dataDirectory, { recursive: true });
-    }
-
-    if (!fs.existsSync(usersFile)) {
-        fs.writeFileSync(usersFile, "[]", "utf8");
-    }
+async function findUserByEmail(email) {
+    return User.findOne({
+        email: email.toLowerCase()
+    });
 }
 
-function readUsers() {
-    ensureDataFile();
-
-    const data = fs.readFileSync(usersFile, "utf8");
-
-    try {
-        return JSON.parse(data);
-    } catch (error) {
-        throw new Error("User data storage is corrupted.");
-    }
+async function findUserById(id) {
+    return User.findById(id);
 }
 
-function writeUsers(users) {
-    ensureDataFile();
+async function createUser(user) {
+    const newUser = new User(user);
 
-    fs.writeFileSync(
-        usersFile,
-        JSON.stringify(users, null, 2),
-        "utf8"
-    );
-}
-
-function findUserByEmail(email) {
-    const users = readUsers();
-
-    return users.find(
-        (user) => user.email.toLowerCase() === email.toLowerCase()
-    );
-}
-
-function findUserById(id) {
-    const users = readUsers();
-
-    return users.find((user) => user.id === id);
-}
-
-function createUser(user) {
-    const users = readUsers();
-
-    users.push(user);
-
-    writeUsers(users);
-
-    return user;
+    return newUser.save();
 }
 
 module.exports = {

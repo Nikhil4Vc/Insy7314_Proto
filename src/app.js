@@ -6,9 +6,31 @@ const rateLimit = require("express-rate-limit");
 const app = express();
 
 const authRoutes = require("./routes/authRoutes");
+const gigRoutes = require("./routes/gigRoutes");
+const bookingRoutes = require("./routes/bookingRoutes");
+const userRoutes = require("./routes/userRoutes");
 
 // Security headers
-app.use(helmet());
+app.use(
+    helmet({
+        contentSecurityPolicy: {
+            directives: {
+                defaultSrc: ["'self'"],
+                scriptSrc: ["'self'"],
+                styleSrc: ["'self'"],
+                imgSrc: ["'self'", "data:"],
+                connectSrc: ["'self'"],
+                objectSrc: ["'none'"],
+                baseUri: ["'self'"],
+                frameAncestors: ["'none'"],
+                formAction: ["'self'"]
+            }
+        },
+        crossOriginResourcePolicy: {
+            policy: "same-site"
+        }
+    })
+);
 
 // Allow frontend/API communication
 app.use(
@@ -36,6 +58,9 @@ const generalLimiter = rateLimit({
 app.use(generalLimiter);
 
 app.use("/api/auth", authRoutes);
+app.use("/api/gigs", gigRoutes);
+app.use("/api/bookings", bookingRoutes);
+app.use("/api/users", userRoutes);
 
 // Health check
 app.get("/api/health", (req, res) => {

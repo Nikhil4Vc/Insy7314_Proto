@@ -37,6 +37,47 @@ describe("Authentication API", () => {
         expect(response.body.user).not.toHaveProperty("passwordHash");
     });
 
+    test("POST /api/auth/register should allow freelancer registration", async () => {
+    const freelancerEmail =
+        `freelancer.${Date.now()}@example.com`;
+
+    const response = await request(app)
+        .post("/api/auth/register")
+        .send({
+            name: "Freelancer Test",
+            email: freelancerEmail,
+            password: "SecurePass123!",
+            role: "freelancer"
+        });
+
+    expect(response.statusCode).toBe(201);
+    expect(response.body.success).toBe(true);
+    expect(response.body.user.role).toBe(
+        "freelancer"
+    );
+});
+
+test("POST /api/auth/register should reject admin self-registration", async () => {
+    const response = await request(app)
+        .post("/api/auth/register")
+        .send({
+            name: "Admin Attempt",
+            email: `adminattempt.${Date.now()}@example.com`,
+            password: "SecurePass123!",
+            role: "admin"
+        });
+
+    expect(response.statusCode).toBe(400);
+    expect(response.body.success).toBe(false);
+
+    expect(
+        response.body.errors.some(
+            (error) =>
+                error.field === "role"
+        )
+    ).toBe(true);
+});
+
     test("POST /api/auth/register should reject duplicate email", async () => {
         const response = await request(app)
             .post("/api/auth/register")
@@ -153,7 +194,7 @@ describe("Authentication API", () => {
             findUserByEmail
         } = require("../src/models/userModel");
 
-        const user = findUserByEmail(testEmail);
+        const user = await findUserByEmail(testEmail);
 
         expect(user).toBeDefined();
         expect(user.passwordHash).toBeDefined();
