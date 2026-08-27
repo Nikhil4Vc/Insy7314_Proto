@@ -1,0 +1,34 @@
+[
+  {
+    "id": "4efe4cde-b6e8-4b2f-a8de-3a913a6e79e8",
+    "name": "John Smith",
+    "email": "john.smith@example.com",
+    "passwordHash": "$2b$12$o.oRQtk7B.2rbQ.E26ndEuPTL39w/qr4qNDJZON4xyJLj.iYFzMdO",
+    "role": "client",
+    "createdAt": "2026-08-17T12:48:52.809Z"
+  },
+  {
+    "id": "d98a0d07-3dd1-4925-89ab-46b7abedbc59",
+    "name": "Test User",
+    "email": "test-1786973473196@example.com",
+    "passwordHash": "$2b$12$mARuubrKfxI58oi61ZNdBOm9lJQxoAdbL04qH5zKcGMicbNjen4ei",
+    "role": "client",
+    "createdAt": "2026-08-17T13:31:13.613Z"
+  },
+  {
+    "id": "ec167c44-f706-402a-8182-b02563214508",
+    "name": "Test User",
+    "email": "test-1786973588949@example.com",
+    "passwordHash": "$2b$12$cfp1neGpoTdHOYCShpRNV.QMJgf0hCED7zmXzxO0V5UHlsDYSNbXW",
+    "role": "client",
+    "createdAt": "2026-08-17T13:33:09.378Z"
+  },
+  {
+    "id": "ea718294-17f9-4e38-b50a-220aa6b94300",
+    "name": "Test User",
+    "email": "test-1786988045262@example.com",
+    "passwordHash": "$2b$12$9S6Iro0lC.u1Pk/CdK2ZeOHcD1Bn.HOddAat39AVcS7Rs6MbJUSNi",
+    "role": "client",
+    "createdAt": "2026-08-17T17:34:06.528Z"
+  }
+]
