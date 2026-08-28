@@ -5,10 +5,10 @@ import {
 
 import { Link } from "react-router-dom";
 
-import api from "../api/api";
-import { useAuth } from "../context/useAuth";
-import Navbar from "../components/Navbar";
-import PageContainer from "../components/PageContainer";
+import api from "../../api/api";
+import { useAuth } from "../../context/useAuth";
+import Navbar from "../../components/Navbar";
+import PageContainer from "../../components/PageContainer";
 
 export default function Gigs() {
   const [gigs, setGigs] = useState([]);
@@ -26,7 +26,7 @@ export default function Gigs() {
       } catch (err) {
         setError(
           err.response?.data?.message ||
-            "Unable to load gigs."
+          "Unable to load gigs."
         );
       } finally {
         setLoading(false);

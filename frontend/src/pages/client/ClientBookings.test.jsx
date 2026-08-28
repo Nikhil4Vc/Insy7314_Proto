@@ -17,9 +17,9 @@ import {
 } from "vitest";
 
 import ClientBookings from "./ClientBookings";
-import api from "../api/api";
+import api from "../../api/api";
 
-vi.mock("../api/api", () => ({
+vi.mock("../../api/api", () => ({
   default: {
     get: vi.fn()
   }
@@ -27,7 +27,7 @@ vi.mock("../api/api", () => ({
 
 const mockLogout = vi.fn();
 
-vi.mock("../context/useAuth", () => ({
+vi.mock("../../context/useAuth", () => ({
   useAuth: () => ({
     user: {
       name: "Test Client",
@@ -107,10 +107,10 @@ describe("ClientBookings", () => {
     ).toBeInTheDocument();
 
     expect(
-  screen.getByText("booked", {
-    selector: ".status-badge"
-  })
-).toBeInTheDocument();
+      screen.getByText("booked", {
+        selector: ".status-badge"
+      })
+    ).toBeInTheDocument();
   });
 
   test("shows a message when the client has no bookings", async () => {
@@ -133,10 +133,10 @@ describe("ClientBookings", () => {
     });
 
     expect(
-  screen.getByText(
-    "You have not booked any gigs yet."
-  )
-).toBeInTheDocument();
+      screen.getByText(
+        "You have not booked any gigs yet."
+      )
+    ).toBeInTheDocument();
   });
 
   test("shows an error when bookings cannot be loaded", async () => {

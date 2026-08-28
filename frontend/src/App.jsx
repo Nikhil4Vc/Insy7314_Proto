@@ -7,9 +7,10 @@ import {
 
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Gigs from "./pages/Gigs";
-import GigDetails from "./pages/GigDetails";
-import ClientBookings from "./pages/ClientBookings";
+
+import Gigs from "./pages/client/Gigs";
+import GigDetails from "./pages/client/GigDetails";
+import ClientBookings from "./pages/client/ClientBookings";
 
 import RoleRoute from "./components/RoleRoute";
 import ProtectedRoute from "./components/ProtectedRoute";

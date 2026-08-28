@@ -7,6 +7,7 @@ import {
 } from "@testing-library/react";
 
 import { MemoryRouter } from "react-router-dom";
+
 import {
   beforeEach,
   describe,
@@ -16,17 +17,17 @@ import {
 } from "vitest";
 
 import Gigs from "./Gigs";
-import api from "../api/api";
+import api from "../../api/api";
 
 const mockLogout = vi.fn();
 
-vi.mock("../api/api", () => ({
+vi.mock("../../api/api", () => ({
   default: {
     get: vi.fn()
   }
 }));
 
-vi.mock("../context/useAuth", () => ({
+vi.mock("../../context/useAuth", () => ({
   useAuth: () => ({
     user: {
       name: "Test Client",

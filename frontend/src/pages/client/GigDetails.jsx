@@ -9,10 +9,10 @@ import {
   useParams
 } from "react-router-dom";
 
-import api from "../api/api";
-import { useAuth } from "../context/useAuth";
-import Navbar from "../components/Navbar";
-import PageContainer from "../components/PageContainer";
+import api from "../../api/api";
+import { useAuth } from "../../context/useAuth";
+import Navbar from "../../components/Navbar";
+import PageContainer from "../../components/PageContainer";
 
 export default function GigDetails() {
   const { id } = useParams();

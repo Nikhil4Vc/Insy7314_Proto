@@ -3,9 +3,9 @@ import {
   useState
 } from "react";
 
-import api from "../api/api";
-import Navbar from "../components/Navbar";
-import PageContainer from "../components/PageContainer";
+import api from "../../api/api";
+import Navbar from "../../components/Navbar";
+import PageContainer from "../../components/PageContainer";
 
 export default function ClientBookings() {
   const [bookings, setBookings] = useState([]);
